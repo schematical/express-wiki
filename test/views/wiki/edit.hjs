@@ -5,6 +5,14 @@
     <body>
         <form method="post" action="{{ wiki.curr_url }}">
             Title: <input type="text" name="title" value="{{ title }}" /><br>
+            Path:
+                {{#is_new}}
+                    <input type="text" name="path" value="{{ wiki.curr_path }}" />
+                {{/is_new}}
+                {{^ is_new }}
+                    <input type="text" readonly="true" value="{{ wiki.curr_path }}" />
+                {{/is_new}}
+            <br>
             Body:
             <textarea name="markdown">{{ markdown }}</textarea>
             <br/>

@@ -9,5 +9,7 @@
         {{/html}}
         <br>
         <a href="{{ wiki.edit_url }}">Edit {{ wiki.curr_path }}</a>
+         or
+        <a href="{{ wiki.new_url }}">Create a new post</a>
     </body>
 </html>

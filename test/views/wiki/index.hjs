@@ -7,7 +7,7 @@
 Records:
         <br>
         {{# records }}
-            <a href="{{ full_path }}">{{ title }}</a>
+            <a href="{{ full_path }}">{{ title }}</a><br>
         {{/records}}
     </body>
 </html>
