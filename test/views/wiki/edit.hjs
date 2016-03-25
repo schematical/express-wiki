@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Edit {{ title }}</title>
+    </head>
+    <body>
+        <form method="post" action="{{ wiki.curr_url }}">
+            Title: <input type="text" name="title" value="{{ title }}" /><br>
+            Body:
+            <textarea name="markdown">{{ markdown }}</textarea>
+            <br/>
+            <button type="submit">Save</button>
+        </form>
+    </body>
+</html>
