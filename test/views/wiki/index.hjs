@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <p>{{ title }}</p>
+Records:
+        <br>
+        {{# records }}
+            <a href="{{ full_path }}">{{ title }}</a>
+        {{/records}}
+    </body>
+</html>
