@@ -33,6 +33,8 @@ The simplest way is to copy the contents [./test/views](./test/views) into your 
 ##Data Stores:
 Data Stores are adapters that allow the wiki to save your information.
 
+Feel free to make your own using the steps below or open an issue github for the Data Store types you want in your app.
+
 ###expressWiki.datastores.FileSystem:
 This uses your local file system for a data store.
 
@@ -96,3 +98,27 @@ app.use('/wiki', expressWiki({
 ```
 
 For a more detailed example checkout [./lib/datastores/FileSystem](./lib/datastores/FileSystem)
+
+###Extending Routes:
+You can extend the route logic that get run after the wiki entry is loaded and rendered.
+
+```
+app.use('/wiki', expressWiki({
+    /* other stuff */
+    routes:{
+        show:function(req, res, next){
+            if(!req.wiki.html){
+                return res.status(404).render('wiki/show', {
+                    title: 'Page not found'
+                });
+            }
+            return res.render('wiki/show', {
+                html:req.wiki.html,
+                title: req.wiki.record.title
+            });
+        }
+    }
+}));
+```
+
+
