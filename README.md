@@ -33,8 +33,6 @@ The simplest way is to copy the contents [./test/views](./test/views) into your 
 ##Data Stores:
 Data Stores are adapters that allow the wiki to save your information.
 
-Feel free to make your own using the steps below or open an issue github for the Data Store types you want in your app.
-
 ###expressWiki.datastores.FileSystem:
 This uses your local file system for a data store.
 
@@ -48,11 +46,24 @@ app.use('/wiki', expressWiki({
 }));
 ```
 
-###expressWiki.datastores.S3Bucket:
+###express-wiki-s3:
 __NOTE: I havent built this yet, also I plan on splitting this out to another repo__
 
-###expressWiki.datastores.Mongoose:
-__NOTE: I havent built this yet, also I plan on splitting this out to another repo__
+###[express-wiki-mongoose](https://www.npmjs.com/package/express-wiki-mongoose):
+For use with MongoDB
+
+```
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+app.use('/wiki', expressWiki({
+    datastore: new ExpressWikiMongoose({
+        mongoose: mongoose,
+        modelName:'WikiRecord'//Optional
+    })
+}));
+```
+
 
 
 ##Build your own:

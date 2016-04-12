@@ -1,0 +1,47 @@
+{
+  "name": "express-wiki",
+  "version": "1.0.1",
+  "description": "An easy to implement express router that allow you to add wiki functionality to your express app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schematical/express-wiki.git"
+  },
+  "keywords": [
+    "express",
+    "expressjs",
+    "wiki",
+    "router",
+    "markdown"
+  ],
+  "author": {
+    "name": "Matt L",
+    "email": "mlea@schematical.com",
+    "url": "http://schematical.com/"
+  },
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/schematical/express-wiki/issues"
+  },
+  "homepage": "https://github.com/schematical/express-wiki",
+  "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "express": "^4.13.4",
+    "lodash": "^4.6.1",
+    "marked": "^0.3.5",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.0",
+    "hjs": "0.0.6"
+  },
+  "readme": "# express-wiki\nThis is a simple package designed to allow you to add wiki functionality to your expressJS app.\n\n##Install:\n###Step 1:\n`npm install -S express-wiki`\n\n###Step 2:\n\n```\nvar express = require('express');\n//YOU WILL NEED SOME TYPE OF 'body-parser'.\nvar app = express();\n\nvar expressWiki = require('express-wiki')\n\napp.use('/wiki', expressWiki({\n\tdatastore: new expressWiki.datastores.FileSystem({\n\t\tdir:__dirname + '/.wiki'\n\t})\n}));\n\n```\n###Setup 3:\nSetup views. See the basic setup below in the [Views](#views) section.\n\n\n###Views:\nWith the basic setup of this module you will need to provide your own views.\nThe simplest way is to copy the contents [./test/views](./test/views) into your views directory then overwrite the files as needed.\n\n\n##Data Stores:\nData Stores are adapters that allow the wiki to save your information.\n\n###expressWiki.datastores.FileSystem:\nThis uses your local file system for a data store.\n\n__DO NOT USE THIS IN PRODUCTION__\n\n```\napp.use('/wiki', expressWiki({\n\tdatastore: new expressWiki.datastores.FileSystem({\n\t\tdir:__dirname + '/.wiki'\n\t})\n}));\n```\n\n###expressWiki.datastores.S3Bucket:\n__NOTE: I havent built this yet, also I plan on splitting this out to another repo__\n\n###expressWiki.datastores.Mongoose:\n__NOTE: I havent built this yet, also I plan on splitting this out to another repo__\n\n\n##Build your own:\nYou can create your own data store as long as you have the following functions:\n\n* save\n* load\n* index\n\nAn example(that wouldn't do much. Is as follows:\n\n```\napp.use('/wiki', expressWiki({\n\tdatastore: {\n        save:function(wiki_path, record, callback){\n            ///Do stuff\n            return callback(err);\n        },\n        load:function(wiki_path, callback){\n            //Load your record\n           var record = {\n                title:\"My first Wiki Post\",\n                markdown:\"###YAY!\\n It's my first post\"\n           };\n\n            return callback(\n                null,\n                record\n            );\n        },\n        index:function(wiki_path, callback){\n            var records = [\n                {\n                    path:'/path/to/my/first/post',\n            \t    title:\"My first post\",\n            \t    type:'dir' || 'post'\n                }\n            ]\n            return callback(null, records);\n        }\n\t}\n}));\n```\n\nFor a more detailed example checkout [./lib/datastores/FileSystem](./lib/datastores/FileSystem)\n\n###Extending Routes:\nYou can extend the route logic that get run after the wiki entry is loaded and rendered.\n\n```\napp.use('/wiki', expressWiki({\n    /* other stuff */\n    routes:{\n        show:function(req, res, next){\n            if(!req.wiki.html){\n                return res.status(404).render('wiki/show', {\n                    title: 'Page not found'\n                });\n            }\n            return res.render('wiki/show', {\n                html:req.wiki.html,\n                title: req.wiki.record.title\n            });\n        }\n    }\n}));\n```\n\n\n",
+  "readmeFilename": "README.md",
+  "gitHead": "5873deeaae1f8840f319cc81018bdf527d4c7ca2",
+  "_id": "express-wiki@1.0.1",
+  "_shasum": "ab2a5e35269b27f50c72fdcfd9dcf51dece13d6d",
+  "_from": "express-wiki@"
+}
