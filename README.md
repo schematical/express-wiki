@@ -53,6 +53,7 @@ __NOTE: I havent built this yet, also I plan on splitting this out to another re
 For use with MongoDB
 
 ```
+var ExpressWikiMongoose = require('express-wiki-mongoose');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 
